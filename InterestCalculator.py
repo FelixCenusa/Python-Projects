@@ -52,7 +52,7 @@ if YearlyOrMonthly == "M":
     else:
         print("In total you added this much money: ", DepositoPeriodico * Duration)
     amountOfProfitFromInterestOnly = (Total - balanceInitial) - (DepositoPeriodico * Duration * 12)
-    print("That means you will have this much extra profit: ", amountOfProfitFromInterestOnly)
-    print("That means you will have this much extra profit in percentage: ", amountOfProfitFromInterestOnly / balanceInitial * 100, "%")
+    print("That means you will have this much extra profit: ", round(amountOfProfitFromInterestOnly,2))
+    print("That means you will have this much extra profit in percentage: ", round((amountOfProfitFromInterestOnly / balanceInitial * 100),2), "%")
 stop = time.time()
-print("Time to run program: ", stop - start," seconds")
+print("Time to run program: ", round((stop - start),2)," seconds")
