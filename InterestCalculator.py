@@ -20,33 +20,34 @@ DepositoPeriodico = float(input())
 IntresAnual = float(input())
 Inflatie = float(input())
 Total = balanceInitial
-InteresAnualConInflatie = IntresAnual - Inflatie + 1
-# lets print the initial balance
+InteresAnualConInflatie = IntresAnual - Inflatie
 print(chr(27) + "[2J" + chr(27) + "[;H")
 print("Initial balance: ", balanceInitial)
 MonthlyInterestRate = (InteresAnualConInflatie/100 + 1) ** (1.0 / 12)
 print("Testing monthly interest rate: ", MonthlyInterestRate**12, (InteresAnualConInflatie/100 + 1))
 if YearlyOrMonthly == "M":
     for i in range(Duration * 12):
-        Total += DepositoPeriodico 
         Total *= MonthlyInterestRate
+        Total += DepositoPeriodico 
         print("Money increasing monthly: ", round(Total,0))
 
 else:
     for i in range(Duration):
+        Total *= 1 + (InteresAnualConInflatie/ 100)
         Total += DepositoPeriodico 
-        Total *= InteresAnualConInflatie
         print("Money increasing yearly: ", round(Total,0))
 
+# lets print the total amount of profit after the duration
+print("After ", Duration, " years you will have this much money: ", round(Total,0))
+print("You added this much money every Month / Year: ", DepositoPeriodico)
 if YearlyOrMonthly == "M":
-    print("After ", Duration, " years you will have this much money: ", round(Total,0))
-    print("You added this much money every Month / Year: ", DepositoPeriodico)
-    if YearlyOrMonthly == "M":
-        print("In total you added this much money: ", DepositoPeriodico * Duration * 12)
-    else:
-        print("In total you added this much money: ", DepositoPeriodico * Duration)
+    print("In total you added this much money: ", DepositoPeriodico * Duration * 12)
     amountOfProfitFromInterestOnly = (Total - balanceInitial) - (DepositoPeriodico * Duration * 12)
-    print("That means you will have this much extra profit: ", round(amountOfProfitFromInterestOnly,2))
-    print("That means you will have this much extra profit in percentage: ", round((amountOfProfitFromInterestOnly / balanceInitial * 100),2), "%")
+else:
+    print("In total you added this much money: ", DepositoPeriodico * Duration)
+    amountOfProfitFromInterestOnly = (Total - balanceInitial) - (DepositoPeriodico * Duration)
+
+print("That means you will have this much extra profit: ", amountOfProfitFromInterestOnly)
+print("That means you will have this much extra profit in percentage: ", amountOfProfitFromInterestOnly / Total * 100, "%")
 stop = time.time()
-print("Time to run program: ", round((stop - start),2)," seconds")
+print("Time to run program: ", stop - start," seconds")
